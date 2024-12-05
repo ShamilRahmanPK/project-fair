@@ -21,10 +21,8 @@ const Footer = () => {
         <div className='d-flex flex-column'>
           <h5>Links</h5>
           <Link to={'/'} style={{textDecoration:'none',color:'white'}}>Home</Link>
-          <Link to={'/home'} style={{textDecoration:'none',color:'white'}}>Login</Link>
-          <Link to={'/history'} style={{textDecoration:'none',color:'white'}}>Register</Link>
-
-          
+          <Link to={'/login'} style={{textDecoration:'none',color:'white'}}>Login</Link>
+          <Link to={'/register'} style={{textDecoration:'none',color:'white'}}>Register</Link>
 
         </div>
         {/* guides */}
