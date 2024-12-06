@@ -3,17 +3,40 @@ import { Link } from 'react-router-dom'
 import landingImg from '../assets/bgImg.png'
 import ProjectCard from '../components/ProjectCard'
 import { Card } from 'react-bootstrap'
+import { homeProjectAPI } from '../services/allAPI'
 
 
 const Home = () => {
   const [isLogin,setIsLogin] = useState(false)
+  const [homeProjects,setHomeProjects]= useState([])
+
+  console.log(homeProjects);
+  
+
   useEffect(()=>{
+    getHomeProjects()
     if (sessionStorage.getItem("token")) {
       setIsLogin(true)
     } else {
       setIsLogin(false)
     }
   },[])
+
+
+  const getHomeProjects = async ()=>{
+    try {
+      const result = await homeProjectAPI()
+      console.log(result);
+      if (result.status==200) {
+        setHomeProjects(result.data)
+      }
+    } catch (err) {
+      console.log(err);
+      
+    }
+  }
+
+
   return (
     <>
     <div style={{minHeight:'100vh'}} className='d-flex justify-content-center align-items-center rounded shadow w-100'>
@@ -39,9 +62,13 @@ const Home = () => {
       <h1 className="mb-5">Explore Our Projects</h1>
       <marquee>
         <div className="d-flex">
-          <div className="me-5">
-            <ProjectCard />
-          </div>
+          {
+            homeProjects?.map(project=>(
+              <div className="me-5">
+              <ProjectCard displayData={project}/>
+            </div>
+            ))
+          }
         </div>
       </marquee>
       <button className="btn btn-link mt-5">CLICK HERE TO VIEW MORE PROJECTS</button>

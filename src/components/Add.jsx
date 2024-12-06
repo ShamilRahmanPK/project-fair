@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import uploadImg from "../assets/uploadImg.png";
+import { addProjectAPI } from "../services/allAPI";
 
 const Add = () => {
   const [show, setShow] = useState(false);
@@ -50,7 +51,7 @@ const Add = () => {
   };
   const handleShow = () => setShow(true);
 
-  const handleAddProject = ()=>{
+  const handleAddProject = async ()=>{
     const {title,languages,overview,github,website,projectImage} = projectDetails
     if (title && languages && overview && github && website && projectDetails) {
 
@@ -69,7 +70,23 @@ const Add = () => {
           "Content-Type" : "multipart/form-data",
           "Authorization" : `Bearer ${token}`
         }
+
         // Make api call
+        try{
+          const result = await addProjectAPI(reqBody,reqHeader)
+          console.log(result);
+          if (result.status==200) {
+            alert(`${result?.data?.title} uploaded successfully`)
+            handleClose()
+          } else {
+            if (result.response.status==406) {
+              alert(result.response.data)
+            }
+          }
+        }catch(err){
+          console.log(err);
+          
+        }
       }
     } else {
       alert("Please fill the form completely")
