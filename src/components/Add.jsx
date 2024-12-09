@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Button, Modal } from "react-bootstrap";
 import uploadImg from "../assets/uploadImg.png";
 import { addProjectAPI } from "../services/allAPI";
+import { addProjectContext } from "../contexts/ContexShare";
 
 const Add = () => {
+  const {addProjectResponse,setAddProjectResponse} = useContext(addProjectContext)
   const [show, setShow] = useState(false);
 
   const [projectDetails, setProjectDetails] = useState({
@@ -70,7 +72,6 @@ const Add = () => {
           "Content-Type" : "multipart/form-data",
           "Authorization" : `Bearer ${token}`
         }
-
         // Make api call
         try{
           const result = await addProjectAPI(reqBody,reqHeader)
@@ -78,6 +79,8 @@ const Add = () => {
           if (result.status==200) {
             alert(`${result?.data?.title} uploaded successfully`)
             handleClose()
+            // share result to view  via context
+            setAddProjectResponse(result)
           } else {
             if (result.response.status==406) {
               alert(result.response.data)
