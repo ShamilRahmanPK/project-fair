@@ -31,3 +31,9 @@ export const AllProjectAPI = async (reqHeader,searchKey)=>{
     // query parameter of url ?search${searchKey}
     return await commonAPI("GET",`${SERVER_BASE_URL}/all-projects?search=${searchKey}`,{},reqHeader)
 }
+
+// /project/675292d05148330e140f2eab/edit
+export const updateProjectAPI = async (id,reqHeader,reqBody)=>{
+    // query parameter of url ?search${searchKey}
+    return await commonAPI("PUT",`${SERVER_BASE_URL}/project/${id}/edit`,reqBody,reqHeader)
+}

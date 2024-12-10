@@ -22,6 +22,7 @@ const Add = () => {
   const [preview, setPreview] = useState("");
 
   console.log(projectDetails);
+
   useEffect(() => {
     if (
       projectDetails.projectImage.type == "image/png" ||
@@ -56,7 +57,6 @@ const Add = () => {
   const handleAddProject = async ()=>{
     const {title,languages,overview,github,website,projectImage} = projectDetails
     if (title && languages && overview && github && website && projectDetails) {
-
       // api call
       const reqBody = new FormData()
       reqBody.append("title",title)

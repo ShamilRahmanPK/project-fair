@@ -2,9 +2,12 @@ import React, { useContext, useEffect, useState } from 'react'
 import Add from './Add'
 import Edit from './Edit'
 import { userProjectAPI } from '../services/allAPI'
-import { addProjectContext } from '../contexts/ContexShare'
+import { addProjectContext, editProjectContext } from '../contexts/ContexShare'
+
 
 const View = () => {
+
+  const {editProjectResponse,setEditProjectResponse} = useContext(editProjectContext)
   const {addProjectResponse,setAddProjectResponse} = useContext(addProjectContext)
   // create state
   const [userProjects,setUserProjects] = useState([])
@@ -13,7 +16,7 @@ const View = () => {
 
   useEffect(()=>{
     getAllUserProjects()
-  },[addProjectResponse])
+  },[addProjectResponse,editProjectResponse])
 
 
   const getAllUserProjects = async ()=>{

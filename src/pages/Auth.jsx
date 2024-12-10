@@ -3,7 +3,6 @@ import authImg from '../assets/login.png'
 import { Form,Spinner } from 'react-bootstrap'
 import FloatingLabel from 'react-bootstrap/FloatingLabel';
 import { Link, useNavigate } from 'react-router-dom';
-import axios from 'axios';
 import { loginAPI, registerAPI } from '../services/allAPI';
 
 
