@@ -37,3 +37,8 @@ export const updateProjectAPI = async (id,reqHeader,reqBody)=>{
     // query parameter of url ?search${searchKey}
     return await commonAPI("PUT",`${SERVER_BASE_URL}/project/${id}/edit`,reqBody,reqHeader)
 }
+
+// projects/:id/remove
+export const deleteProjectAPI = async (id,reqHeader)=>{
+    return await commonAPI("DELETE",`${SERVER_BASE_URL}/project/${id}/remove`,{},reqHeader)
+}

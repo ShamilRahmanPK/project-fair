@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import Add from './Add'
 import Edit from './Edit'
-import { userProjectAPI } from '../services/allAPI'
+import { deleteProjectAPI, userProjectAPI } from '../services/allAPI'
 import { addProjectContext, editProjectContext } from '../contexts/ContexShare'
 
 
@@ -40,6 +40,24 @@ const View = () => {
     
   }
 
+  const removeProject = async (id)=>{
+    const token = sessionStorage.getItem("token")
+    if (token) {
+      const reqHeader = {
+        "Authorization" : `Bearer ${token}`
+      }
+      try {
+        const result = await deleteProjectAPI(id,reqHeader)
+        if (result.status==200) {
+          getAllUserProjects()
+        }
+      } catch (err) {
+        console.log(err);
+        
+      }
+    }
+  }
+
   return (
     <>
     <div className="d-flex justify-content-between mt-3">
@@ -56,7 +74,7 @@ const View = () => {
             <div className="d-flex align-items-center">
                 <div><Edit projects={projects}/></div>
                 <button className="btn"><a target='_blank' href={projects?.github}><i className="fa-brands fa-github"></i></a></button>
-                <button className="btn"><i className="fa-solid fa-trash text-danger"></i></button>
+                <button onClick={()=>removeProject(projects?._id)} className="btn"><i className="fa-solid fa-trash text-danger"></i></button>
             </div>
         </div>
           ))
