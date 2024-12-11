@@ -74,7 +74,7 @@ const Edit = ({projects}) => {
         reqBody.append("overview",overview)
         reqBody.append("github",github)
         reqBody.append("website",website)
-        // check image is thereor not
+        // check image is there or not
         preview?reqBody.append("projectImage",projectImage):reqBody.append("projectImage",projects?.projectImage)
   
         const token = sessionStorage.getItem("token")
