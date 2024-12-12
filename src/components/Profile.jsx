@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
-import Button from 'react-bootstrap/Button';
 import Fade from 'react-bootstrap/Fade';
 import uploadImg from '../assets/upload.png'
 import SERVER_BASE_URL from '../services/serverUrl';
+import { updateUserAPI } from '../services/allAPI';
+import { ToastContainer, toast } from 'react-toastify';
+  import 'react-toastify/dist/ReactToastify.css';
 
 const Profile = () => {
 
@@ -33,7 +35,7 @@ const Profile = () => {
       }
     },[userDetails.profilePic])
 
-    const handeUserUpdate = ()=>{
+    const handeUserUpdate = async ()=>{
       // get all user details
       const {username,email,password,github,linkdin,profilePic} = userDetails
       // if text feilds are full
@@ -54,9 +56,24 @@ const Profile = () => {
           "Authorization" : `Bearer ${token}`
           }
           // make api call
+          try {
+            const result = await updateUserAPI(reqBody,reqHeader)
+            if (result.status==200) {
+              // alert
+              toast.success("User Profie updated succefully!")
+              // alert("User Profie updated succefully!")
+              // store updated user in session
+              sessionStorage.setItem("user",JSON.stringify(result.data))
+              // collapse the profile
+              setOpen(!open)
+            }
+          } catch (err) {
+            console.log(err);
+            
+          }
         }
       } else {
-        alert("PLease fill the form completely")
+        toast.info("Please fill the form comptely")
         
       }
     }
@@ -91,6 +108,7 @@ const Profile = () => {
           </div>
         </div>
       </Fade>
+      <ToastContainer position='top-center' />
     </>
   )
 }
