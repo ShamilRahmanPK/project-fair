@@ -12,7 +12,7 @@ const Projects = () => {
   
 
   console.log(allProjects);
-  
+    
   useEffect(()=>{
     getAllProjects()
   },[searchKey])
@@ -21,7 +21,7 @@ const Projects = () => {
     const token = sessionStorage.getItem('token')
     if (token) {
       const reqHeader = {
-        "Authorization" : `beare ${token}`
+        "Authorization" : `Bearer ${token}`
 
       }
       try {
