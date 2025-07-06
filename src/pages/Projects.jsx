@@ -5,7 +5,7 @@ import { Col, Row } from 'react-bootstrap'
 import { AllProjectAPI } from '../services/allAPI'
 
 const Projects = () => {
-  const [searchKey,setSearchKey] = useState()
+  const [searchKey,setSearchKey] = useState('')
   const [allProjects,setAllProjects] = useState([])
 
   console.log(searchKey);
